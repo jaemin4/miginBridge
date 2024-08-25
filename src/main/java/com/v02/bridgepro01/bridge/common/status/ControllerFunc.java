@@ -12,6 +12,7 @@ public class ControllerFunc {
     public <T> ResponseEntity<Map<String, Object>> selectAll(List<T> list, String dataSourceName) {
         if (list != null && !list.isEmpty()) {
             Map<String, Object> result = Map.of(dataSourceName, list);
+            System.out.println("안녕");
             return ResponseEntity.ok().body(result);
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
