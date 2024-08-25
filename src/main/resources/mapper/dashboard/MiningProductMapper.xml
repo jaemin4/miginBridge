@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.v02.bridgepro01.bridge.dashboard.MiningProductRepository">
+
+    <select id = "SelectMiningProductInfo" resultType="com.v02.bridgepro01.bridge.dashboard.vo.MiningProductVO">
+        select * from miningproductinfo;
+    </select>
+
+    <select id = "SelectByIdMiningProductInfo" resultType="com.v02.bridgepro01.bridge.dashboard.vo.MiningProductVO">
+        select * from miningproductinfo where productid = #{id};
+    </select>
+
+    <select id = "SelectWithPaging" resultType="com.v02.bridgepro01.bridge.dashboard.vo.MiningProductVO">
+        select *
+        from miningproductinfo
+        order by productID desc
+        offset #{offset} rows
+            fetch next #{pageSize} rows only
+    </select>
+
+    <select id = "CountAllMiningProduct" resultType="int">
+        select count(*)
+        from miningproductinfo
+    </select>
+
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.v02.bridgepro01.bridge.announcement.NotifiRepository">
+
+    <select id = "SelectNotifiInfo" resultType="com.v02.bridgepro01.bridge.announcement.vo.NotifiInfoVO">
+        select * from AnnounceMent;
+    </select>
+
+    <select id = "SelectByIdNotifiInfo" resultType="com.v02.bridgepro01.bridge.announcement.vo.NotifiInfoVO">
+        select *
+        from AnnounceMent
+        where notifiid = #{id};
+    </select>
+
+    <insert id="SaveNotifiInfo" parameterType="com.v02.bridgepro01.bridge.announcement.dto.NotifISaveDTO">
+        INSERT INTO AnnounceMent (notifiid, notifitype, notifititle, notificontent, notifiauthor, notifiuploaddate,NotifiUploadingImages)
+        VALUES (#{notifiId}, #{notifiType}, #{notifiTitle}, #{notifiContent}, #{notifiAuthor}, #{notifiUploadDate},#{NotifiUploadingImages})
+    </insert>
+
+    <update id = "UpdateNotifiInfo" parameterType="com.v02.bridgepro01.bridge.announcement.dto.NotifiUpdateDTO">
+        update AnnounceMent
+        set NotifiType = #{notifiType},NotifiContent = #{notifiContent},NotifiUploadingImages = #{NotifiUploadingImages}
+        where notifiid = #{notifiId}
+    </update>
+
+    <select id = "SelectWithPaging" resultType="com.v02.bridgepro01.bridge.announcement.vo.NotifiInfoVO">
+        select *
+        from AnnounceMent
+        order by NotifiUploadDate desc
+        offset #{offset} rows
+        fetch next #{pageSize} rows only
+    </select>
+
+    <select id = "CountSelectAll" resultType="int">
+        select count(*)
+        from AnnounceMent
+    </select>
+
+
+
+</mapper>

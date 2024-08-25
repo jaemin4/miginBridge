@@ -1,0 +1,30 @@
+server:
+  port: 9999
+
+spring:
+  application:
+    name: BridgePro01
+  datasource:
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://ms1902.gabiadb.com;database=miningbridge;encrypt=false
+    username: protein
+    password: asdf1234!!
+
+#paging
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+
+#mybatis
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    com.v02.bridgepro01.bridge: DEBUG
+
+#  jwt:
+#    secret: vmfhaltmskdlstkfkdgodyroqkfwkdbalroqkfwkdbalaaaaaaaaaaaaaaaabbbbb
