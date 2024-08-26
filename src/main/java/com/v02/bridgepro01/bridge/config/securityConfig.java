@@ -1,5 +1,6 @@
 package com.v02.bridgepro01.bridge.config;
 
+import com.v02.bridgepro01.bridge.authSecurity.filter.CustomLogoutFilter;
 import com.v02.bridgepro01.bridge.authSecurity.filter.JWTFilter;
 import com.v02.bridgepro01.bridge.authSecurity.filter.JWTUtil;
 import com.v02.bridgepro01.bridge.authSecurity.filter.LoginFilter;
@@ -13,6 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -23,6 +25,8 @@ public class securityConfig {
 
     //JWTUtil 주입
     private final JWTUtil jwtUtil;
+
+
 
     //생성자
     public securityConfig(AuthenticationConfiguration authenticationConfiguration, JWTUtil jwtUtil) {
@@ -62,9 +66,10 @@ public class securityConfig {
         // 경로별 인가 작업
         http
                 .authorizeHttpRequests(auth -> auth
+                        .antMatchers("/logout").permitAll()
                         .antMatchers("/user/login").permitAll()
                         .antMatchers("/files/**").permitAll()
-                        .antMatchers("/user/join").permitAll()
+                        .antMatchers("/user/**").permitAll()
                         .antMatchers("/admin/test").hasRole("ADMIN")
                         .antMatchers("/dashboard/**").permitAll()
                         .antMatchers("/announcement/**").permitAll()
@@ -83,7 +88,9 @@ public class securityConfig {
         http
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration),jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
-
+        // 로그아웃
+        http
+                .addFilterBefore(new CustomLogoutFilter(jwtUtil), LogoutFilter.class);
         return http.build();
     }
 }

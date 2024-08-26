@@ -28,6 +28,8 @@ dependencies {
 	testImplementation("org.springframework.security:spring-security-test")
     annotationProcessor("org.projectlombok:lombok")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+//	implementation ("org.springframework.boot:spring-boot-starter-data-redis")
+
 }
 
 tasks.withType<Test> {

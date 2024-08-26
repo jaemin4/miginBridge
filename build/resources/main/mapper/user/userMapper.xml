@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.v02.bridgepro01.bridge.authSecurity.repository.LoginJoinRepository">
+
+
+        <insert id="joinProcess" parameterType="com.v02.bridgepro01.bridge.authSecurity.domain.UserJoinDTO">
+            INSERT INTO Users (
+                email,
+                userIdentifyId,
+                password,
+                name,
+                birthdate,
+                krw_bank_name,
+                krw_account_number,
+                bitcoin_address,
+                join_date,
+                user_status,
+                krw_amount,
+                bitcoin_amount,
+                role
+            ) VALUES (
+                #{email},
+                #{userIdentifyId},
+                #{password},
+                #{name},
+                #{birthdate},
+                #{krwBankName},
+                #{krwAccountNumber},
+                #{bitcoinAddress},
+                #{joinDate},
+                #{userStatus},
+                #{krwAmount},
+                #{bitcoinAmount},
+                #{role}
+                     );
+        </insert>
+
+
+    <select id="countUser" resultType="int">
+        select count(*) from users;
+    </select>
+
+    <select id = "findByUsername" resultType="com.v02.bridgepro01.bridge.authSecurity.domain.UserAccessDTO">
+        select email,password,role from users where email = #{username};
+    </select>
+
+</mapper>
